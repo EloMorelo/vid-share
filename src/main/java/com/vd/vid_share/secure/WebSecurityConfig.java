@@ -15,12 +15,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/index", "/register", "/login").permitAll()
+                        .requestMatchers("/", "/home", "/index", "/register", "/login","/main").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/main", true)
                         .permitAll()
                 )
                 .logout(logout ->
