@@ -1,48 +1,51 @@
 package com.vd.vid_share.service;
 
-import com.vd.vid_share.repository.UserRepo;
 import com.vd.vid_share.entities.User;
-import lombok.*;
+import com.vd.vid_share.repository.UserRepo;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
 @Service
 public class UserService {
 
-    UserRepo userRepo;
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-    public List<User> getAllUsers(){
+
+    public List<User> getAllUsers() {
         return userRepo.findAll();
     }
 
-    public User getUserById(Integer id){
+    public User getUserById(UUID id) {
         Optional<User> optionalUser = userRepo.findById(id);
-        if(optionalUser.isPresent()){
-            return optionalUser.get();
+        return optionalUser.orElse(null);
+    }
+
+    public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
+    }
+
+    public User updateUser(User user) {
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-
-        return null;
+        return userRepo.save(user);
     }
 
-    public User saveUser (User User){
-        User savedUser = userRepo.save(User);
-
-        return savedUser;
-    }
-
-    public User updateUser (User User) {
-        Optional<User> existingUser = userRepo.findById(User.getId());
-
-        User updatedUser = userRepo.save(User);
-
-        return updatedUser;
-    }
-
-    public void deleteUserById (Integer id) {
+    public void deleteUserById(UUID id) {
         userRepo.deleteById(id);
     }
 }

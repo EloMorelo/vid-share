@@ -2,14 +2,12 @@ package com.vd.vid_share.controller;
 
 
 import com.vd.vid_share.entities.User;
-import com.vd.vid_share.repository.UserRepo;
 import com.vd.vid_share.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id)
+    public ResponseEntity<User> getUserById(@PathVariable UUID id)
     {
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
@@ -43,7 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable Integer id)
+    public ResponseEntity<String> deleteUserById(@PathVariable UUID id)
     {
         userService.deleteUserById(id);
         return ResponseEntity.ok().body("User deleted");
