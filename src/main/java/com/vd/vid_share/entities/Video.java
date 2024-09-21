@@ -22,12 +22,14 @@ public class Video {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false, length = 1021)
     private String description;
 
     @Column(nullable = false)
     private String filePath;
 
     private LocalDateTime uploadDate;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

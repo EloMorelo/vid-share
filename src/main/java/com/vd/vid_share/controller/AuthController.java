@@ -1,5 +1,6 @@
 package com.vd.vid_share.controller;
 
+
 import com.vd.vid_share.service.UserService;
 import jakarta.validation.Valid;
 import com.vd.vid_share.entities.User;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
-public class RegisterController {
+public class AuthController {
 
     @Autowired
     private UserService userService;
@@ -32,4 +34,5 @@ public class RegisterController {
         model.addAttribute("message", "User registered successfully!");
         return "register-success";
     }
+
 }

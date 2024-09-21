@@ -1,5 +1,6 @@
 package com.vd.vid_share.secure;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,12 +16,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/index", "/register", "/login","/main").permitAll()
+                        .requestMatchers("/", "/home", "/index", "/register", "/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/main", true)
+                        .successHandler(new AuthSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout ->

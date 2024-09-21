@@ -27,13 +27,14 @@ public class VideoService {
     }
 
     public Video saveVideo(MultipartFile file, String title, String description, User user) throws IOException {
-        String uploadDir = "videos/";
-
+        System.out.println("Uploading video: " + title);
+        String uploadDir = "C:/Users/Kuba/Desktop/Projekty/vid-share/vid-share/VIDEO_UPLOAD/";
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         File fileToSave = new File(uploadDir + fileName);
         file.transferTo(fileToSave);
-
+        System.out.println("file to save: " + fileToSave);
+        System.out.println("user: " + user.getUsername());
         Video video = new Video();
         video.setTitle(title);
         video.setDescription(description);
