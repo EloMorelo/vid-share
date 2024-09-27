@@ -23,25 +23,28 @@ public class VideoService {
     }
 
     public List<Video> getAllVideos() {
-        return vidRepo.findAll();
+        List<Video> videos = vidRepo.findAll();
+        System.out.println("Retrieved videos: " + videos);
+        return videos;
     }
 
+
+
     public Video saveVideo(MultipartFile file, String title, String description, User user) throws IOException {
-        System.out.println("Uploading video: " + title);
         String uploadDir = "C:/Users/Kuba/Desktop/Projekty/vid-share/vid-share/VIDEO_UPLOAD/";
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         File fileToSave = new File(uploadDir + fileName);
         file.transferTo(fileToSave);
-        System.out.println("file to save: " + fileToSave);
-        System.out.println("user: " + user.getUsername());
+
         Video video = new Video();
         video.setTitle(title);
         video.setDescription(description);
-        video.setFilePath(fileToSave.getPath());
+        video.setFileName(fileName);
         video.setUploadDate(LocalDateTime.now());
         video.setUser(user);
-
+        System.out.println("Saving video to: " + fileToSave.getAbsolutePath());
+        System.out.println("Video saved: " + video.getFileName() + " | " + video.getTitle());
         return vidRepo.save(video);
     }
 }

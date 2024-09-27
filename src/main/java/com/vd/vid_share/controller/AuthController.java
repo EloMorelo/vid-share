@@ -35,4 +35,9 @@ public class AuthController {
         return "register-success";
     }
 
+    @GetMapping("/login")
+    public String showLoginForm(Model model){
+        return "login";
+    }
+
 }

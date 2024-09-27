@@ -26,7 +26,7 @@ public class Video {
     private String description;
 
     @Column(nullable = false)
-    private String filePath;
+    private String fileName;
 
     private LocalDateTime uploadDate;
 

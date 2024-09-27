@@ -51,21 +51,27 @@
         <a href="#" class="list-group-item list-group-item-action">My Subscriptions</a>
       </div>
     </div>
-
     <div class="col-md-9">
-      <div class="row">
-        <div th:each="video : ${videos}" class="col-md-12 mb-4">
+      <h3>Uploaded Videos</h3>
+      <div class="row" th:if="${videos != null and !videos.isEmpty()}">
+        <div th:each="video : ${videos}" class="col-md-6 mb-4">
           <div class="video-card">
-            <div class="video-thumbnail" th:style="'background-image: url(' + ${video.filePath} + ')'">
+            <div class="video-player">
+              <video width="100%" controls>
+                <source th:src="@{/{fileName}(fileName=${video.fileName})}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
             </div>
-            <div class="video-title">
-              <a th:href="@{/video/{id}(id=${video.id})}" th:text="${video.title}"></a>
-            </div>
-            <div class="video-info">
+            <div class="video-title mt-2">
+              <h5 th:text="${video.title}"></h5>
             </div>
           </div>
         </div>
       </div>
+      <div th:if="${videos != null and videos.isEmpty()}">
+        <p>No videos available.</p>
+      </div>
+
     </div>
   </div>
 </div>

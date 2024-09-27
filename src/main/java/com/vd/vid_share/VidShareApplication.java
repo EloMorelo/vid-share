@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VidShareApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VidShareApplication.class, args);
+		SpringApplication.	run(VidShareApplication.class, args);
 	}
 
 }
