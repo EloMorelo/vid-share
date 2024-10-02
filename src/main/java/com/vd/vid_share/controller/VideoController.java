@@ -7,6 +7,7 @@ import com.vd.vid_share.service.VideoService;
 import com.vd.vid_share.secure.UserDet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +36,9 @@ public class VideoController {
 
     @Autowired
     private UserService userService;
+
+    @Value("${video.storage.location}")
+    private String storageLocation;
 
 
     @GetMapping("/")
@@ -83,7 +87,7 @@ public class VideoController {
     @GetMapping("/{fileName}")
     public ResponseEntity<Resource> getVideo(@PathVariable String fileName) {
         try {
-            Path filePath = Paths.get("C:/Users/Kuba/Desktop/Projekty/vid-share/vid-share/VIDEO_UPLOAD/").resolve(fileName).normalize();
+            Path filePath = Paths.get(storageLocation).resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
