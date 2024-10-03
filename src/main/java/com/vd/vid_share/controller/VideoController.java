@@ -4,7 +4,6 @@ import com.vd.vid_share.entities.User;
 import com.vd.vid_share.entities.Video;
 import com.vd.vid_share.service.UserService;
 import com.vd.vid_share.service.VideoService;
-import com.vd.vid_share.secure.UserDet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,8 +52,7 @@ public class VideoController {
     public String showUploadForm(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            UserDet userDet = (UserDet) authentication.getPrincipal();
-            User user = userDet.getUser();
+            User user = (User) authentication.getPrincipal();
             model.addAttribute("userId", user.getId());
         }
         return "upload";

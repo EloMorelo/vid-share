@@ -1,5 +1,6 @@
 package com.vd.vid_share.secure;
 
+import com.vd.vid_share.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -16,8 +17,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        UserDet userDet = (UserDet) authentication.getPrincipal();
-        UUID userId = userDet.getId();
+        User user = (User) authentication.getPrincipal();
+        UUID userId = user.getId();
 
         request.getSession().setAttribute("userId", userId);
         response.sendRedirect("/");

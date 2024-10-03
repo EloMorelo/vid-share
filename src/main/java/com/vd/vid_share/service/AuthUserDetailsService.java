@@ -2,7 +2,6 @@ package com.vd.vid_share.service;
 
 import com.vd.vid_share.entities.User;
 import com.vd.vid_share.repository.UserRepo;
-import com.vd.vid_share.secure.UserDet;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,9 +18,8 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username)
+        // Now, return the User entity directly as it implements UserDetails
+        return userRepo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        return new UserDet(user);
     }
 }
