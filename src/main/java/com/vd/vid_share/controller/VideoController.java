@@ -44,7 +44,7 @@ public class VideoController {
     public String showHomePage(Model model) {
         List<Video> videos = videoService.getAllVideos();
         model.addAttribute("videos", videos);
-        return "index";  // Render the videos page
+        return "index";
     }
 
 
@@ -77,8 +77,8 @@ public class VideoController {
     @ResponseBody
     public List<Video> testGetAllVideos() {
         List<Video> videos = videoService.getAllVideos();
-        System.out.println("Retrieved videos: " + videos); // Log the videos to console
-        return videos;  // Return the list of videos as JSON
+        System.out.println("Retrieved videos: " + videos);
+        return videos;
     }
 
 

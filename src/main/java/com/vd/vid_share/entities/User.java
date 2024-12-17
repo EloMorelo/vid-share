@@ -3,6 +3,7 @@ package com.vd.vid_share.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,6 +43,12 @@ public class User implements UserDetails {
 
     private LocalDateTime updatedAt;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -52,10 +59,6 @@ public class User implements UserDetails {
         this.updatedAt = LocalDateTime.now();
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
 
     @Override
     public boolean isAccountNonExpired() {
